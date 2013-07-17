@@ -1,2 +1,4 @@
-<h1><%= @user.username %></h1>
-<h2><%= cookies['_booksh_session'] %></h2>
+<h1><%= "#{@user.first_name} #{@user.last_name}" %></h1>
+
+<%= link_to "Create a book", new_book_specimen_path, class: 'btn btn-primary btn-large center' %>
+<!--<%= render 'users/books_container' %>-->

@@ -1,12 +1,23 @@
+# -*- encoding : utf-8 -*-
 class UsersController < ApplicationController
   before_filter :signed_in_user, only: [:show]
+  before_filter :correct_user, only: [:edit, :update]
   def new
     @user = User.new
   end
 
+  def showme
+    if signed_in?
+      @user = current_user
+      render 'show'
+    else
+      render 'static_pages/home'
+    end
+  end
+
   def create
-    @user = User.create(user_params)
-    if @user
+    @user = User.new(user_params)
+    if @user.save
       sign_in @user
       redirect_to @user, success: "Welcome!"
     else
@@ -18,16 +29,36 @@ class UsersController < ApplicationController
     @user = User.find_by_id(params[:id])
   end
 
-  private
-    def user_params
-      params[:user][:username].downcase!
-      params.require(:user).permit(:username,:email,:password,:password_confirmation)
+  def edit
+  end
+
+  def update
+    if @user.update_attributes(user_params)
+      sign_in @user
+      redirect_to @user, success: "Profile updated"
     end
+  end
+
+  def index
+    redirect_to @user
+  end
+
+  private
+  def user_params
+    params.require(:user).permit(
+        :username,:email,:password,:password_confirmation,
+        :first_name,:last_name,:city,:geo_coordinates)
+  end
 
     def signed_in_user
       unless signed_in?
         store_location
         redirect_to signin_url, notice: "Please sign in"
       end
+    end
+
+    def correct_user
+      @user = User.find(params[:id])
+      redirect_to(root_path) unless current_user?(@user)
     end
 end

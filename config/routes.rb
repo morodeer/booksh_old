@@ -1,8 +1,11 @@
+# -*- encoding : utf-8 -*-
 Booksh::Application.routes.draw do
 
   resources :users
   resources :sessions, only: [:new, :create, :destroy]
+  resources :book_specimens
 
+  root to: 'users#showme'
   get '/signin', to: 'sessions#new'
   get '/signup', to: 'users#new'
   # The priority is based upon order of creation: first created -> highest priority.

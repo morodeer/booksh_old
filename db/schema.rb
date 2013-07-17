@@ -11,7 +11,47 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130717072335) do
+ActiveRecord::Schema.define(version: 20130717112903) do
+
+  create_table "authors", force: true do |t|
+    t.string   "name"
+    t.string   "real_name"
+    t.string   "wiki_link"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "authors", ["name"], name: "index_authors_on_name"
+  add_index "authors", ["real_name"], name: "index_authors_on_real_name"
+
+  create_table "book_author_relationships", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "book_id"
+    t.integer  "author_id"
+  end
+
+  create_table "book_specimen", force: true do |t|
+    t.integer  "book_id"
+    t.integer  "owner_id"
+    t.integer  "temp_owner_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "books", force: true do |t|
+    t.string   "name"
+    t.string   "author_names"
+    t.string   "detail"
+    t.string   "isbn"
+    t.string   "clean_isbn"
+    t.string   "publish_year"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "books", ["clean_isbn"], name: "index_books_on_clean_isbn"
+  add_index "books", ["name"], name: "index_books_on_name"
 
   create_table "users", force: true do |t|
     t.string   "username"
@@ -20,8 +60,14 @@ ActiveRecord::Schema.define(version: 20130717072335) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "remember_token"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "city"
+    t.string   "geo_coordinates"
   end
 
+  add_index "users", ["first_name"], name: "index_users_on_first_name"
+  add_index "users", ["last_name"], name: "index_users_on_last_name"
   add_index "users", ["remember_token"], name: "index_users_on_remember_token"
 
 end

@@ -46,3 +46,9 @@ gem 'bcrypt-ruby', '~> 3.0.0'
 # gem 'debugger', group: [:development, :test]
 
 gem 'rspec-rails', group: [:development, :test]
+#gem 'spork', group: [:development, :test]
+gem 'spork-rails', :github => 'sporkrb/spork-rails'
+gem 'factory_girl_rails', group: [:test]
+gem 'magic_encoding'
+
+gem 'capybara'
