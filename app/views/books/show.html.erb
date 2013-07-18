@@ -1,0 +1,17 @@
+<% provide(:title, @book.title) %>
+
+<h1><%= @book.title %></h1>
+<h3>
+  <% @book.authors.each do |author| %>
+      <%= link_to(author) do %>
+          <span class="author"><%= author.name %></span>
+      <% end %>
+  <% end %>
+
+</h3>
+    <% if signed_in? %>
+<%= link_to "Make specimen", create_specimen_of_book_path(@book.id)%>
+    <% else %>
+<%= link_to "Sign in", signin_path %>
+    <% end %>
+<p class="detail"><%= @book.detail %></p>

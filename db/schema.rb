@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130717112903) do
+ActiveRecord::Schema.define(version: 20130718094839) do
 
   create_table "authors", force: true do |t|
     t.string   "name"
@@ -31,7 +31,7 @@ ActiveRecord::Schema.define(version: 20130717112903) do
     t.integer  "author_id"
   end
 
-  create_table "book_specimen", force: true do |t|
+  create_table "book_specimens", force: true do |t|
     t.integer  "book_id"
     t.integer  "owner_id"
     t.integer  "temp_owner_id"
@@ -40,7 +40,7 @@ ActiveRecord::Schema.define(version: 20130717112903) do
   end
 
   create_table "books", force: true do |t|
-    t.string   "name"
+    t.string   "title"
     t.string   "author_names"
     t.string   "detail"
     t.string   "isbn"
@@ -51,7 +51,7 @@ ActiveRecord::Schema.define(version: 20130717112903) do
   end
 
   add_index "books", ["clean_isbn"], name: "index_books_on_clean_isbn"
-  add_index "books", ["name"], name: "index_books_on_name"
+  add_index "books", ["title"], name: "index_books_on_title"
 
   create_table "users", force: true do |t|
     t.string   "username"

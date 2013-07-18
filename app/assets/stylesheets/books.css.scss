@@ -1,0 +1,41 @@
+// Place all the styles related to the books controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+@mixin box_sizing {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+@mixin block {
+  display: block;
+  overflow: hidden;
+}
+
+#books_container {
+  @include block;
+  float: none;
+
+  .book_wrapper {
+    width: 100%;
+    @include block;
+    padding: 0.5em 1em;
+  }
+
+  .book_block {
+    @include block;
+     background: lightgray;
+  }
+
+  a:hover {
+    text-decoration: none;
+
+    .book_block
+    {
+      background: lightpink;
+
+    }
+  }
+
+}

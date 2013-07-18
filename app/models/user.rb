@@ -17,8 +17,12 @@ class User < ActiveRecord::Base
 
 
 
-  def obtain(book)
+  def obtain!(book)
     book_specimens.create!(book_id: book.id)
+  end
+
+  def full_name
+    "#{first_name} #{last_name}"
   end
 
   private

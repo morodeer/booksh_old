@@ -1,0 +1,8 @@
+<% provide(:title,'New book specimen') %>
+<h1>Добавить книгу</h1>
+<p>
+  Наверняка ваша книга уже есть на сайте. Попробуйте найти её, или же <%= link_to "создайте новую", new_book_path %>.
+</p>
+
+<%= render 'books/embedded_search', locals: {source: 'new_specimen'} %>
+

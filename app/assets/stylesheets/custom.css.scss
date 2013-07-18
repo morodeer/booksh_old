@@ -12,6 +12,12 @@ $grayMediumLight: #eaeaea;
   box-sizing: border-box;
 }
 
+.container
+{
+  display: block;
+  overflow: hidden;
+}
+
 html {
   overflow-y: scroll;
 }
@@ -245,3 +251,4 @@ aside {
     margin-bottom: 5px;
   }
 }
+

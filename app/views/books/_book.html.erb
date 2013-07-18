@@ -1,0 +1,17 @@
+<li>
+  <%= link_to(book) do %>
+    <div class="title">  <%= book.title %>
+    </div>
+      <div class="authors">
+        <% book.get_authors.each do |author| %>
+            <%= link_to(author) do %>
+
+            <span class="author"><%= author.name %></span>
+
+            <% end %>
+
+        <% end %>
+      </div>
+
+  <% end %>
+</li>

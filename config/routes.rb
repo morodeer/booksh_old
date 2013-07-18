@@ -4,8 +4,12 @@ Booksh::Application.routes.draw do
   resources :users
   resources :sessions, only: [:new, :create, :destroy]
   resources :book_specimens
+  resources :books
+
+  resources :authors
 
   root to: 'users#showme'
+  get '/books/:book_id/create_specimen', to: 'book_specimens#create', as: 'create_specimen_of_book'
   get '/signin', to: 'sessions#new'
   get '/signup', to: 'users#new'
   # The priority is based upon order of creation: first created -> highest priority.

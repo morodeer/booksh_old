@@ -15,3 +15,8 @@
 # ActiveSupport::Inflector.inflections(:en) do |inflect|
 #   inflect.acronym 'RESTful'
 # end
+
+ActiveSupport::Inflector.inflections(:en) do |i|
+  i.irregular 'specimen', 'specimens'
+  i.irregular 'book_specimen', 'book_specimens'
+end

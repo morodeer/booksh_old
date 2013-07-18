@@ -18,7 +18,7 @@ describe Book do
   it {should be_valid}
 
   describe "with empty name" do
-    before {@book.name = ' '}
+    before {@book.title = ' '}
     it {should_not be_valid}
   end
 

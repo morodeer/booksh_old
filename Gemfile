@@ -52,3 +52,9 @@ gem 'factory_girl_rails', group: [:test]
 gem 'magic_encoding'
 
 gem 'capybara'
+
+gem 'awesome_nested_fields'
+gem 'faker'
+
+gem 'will_paginate'
+gem 'bootstrap-will_paginate'
