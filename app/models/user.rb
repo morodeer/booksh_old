@@ -1,4 +1,22 @@
 # -*- encoding : utf-8 -*-
+# == Schema Information
+#
+# Table name: users
+#
+#  id              :integer          not null, primary key
+#  username        :string(255)
+#  email           :string(255)
+#  password_digest :string(255)
+#  created_at      :datetime
+#  updated_at      :datetime
+#  remember_token  :string(255)
+#  first_name      :string(255)
+#  last_name       :string(255)
+#  city            :string(255)
+#  geo_coordinates :string(255)
+#
+
+# -*- encoding : utf-8 -*-
 class User < ActiveRecord::Base
 
   has_many :book_specimens, foreign_key: 'owner_id'

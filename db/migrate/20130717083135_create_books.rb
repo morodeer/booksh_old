@@ -4,7 +4,7 @@ class CreateBooks < ActiveRecord::Migration
     create_table :books do |t|
       t.string :name
       t.string :authors
-      t.string :detail
+      t.text :detail
       t.string :isbn
       t.string :clean_isbn
       t.string :publish_year

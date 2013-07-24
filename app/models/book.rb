@@ -1,4 +1,20 @@
 # -*- encoding : utf-8 -*-
+
+# == Schema Information
+#
+# Table name: books
+#
+#  id           :integer          not null, primary key
+#  title        :string(255)
+#  author_names :string(255)
+#  detail       :string(255)
+#  isbn         :string(255)
+#  clean_isbn   :string(255)
+#  publish_year :string(255)
+#  created_at   :datetime
+#  updated_at   :datetime
+#
+
 class Book < ActiveRecord::Base
 
   has_many :reverse_book_author_relationships, foreign_key: "book_id", class_name: "BookAuthorRelationship", dependent: :destroy
@@ -9,7 +25,7 @@ class Book < ActiveRecord::Base
 
 
 
-  validates :tit, presence: true, length: {minimum: 2}
+  validates :title, presence: true, length: {minimum: 2}
   #validates :author_names, presence: true, length: {minimum: 2}
 
   before_save :generate_clean_isbn

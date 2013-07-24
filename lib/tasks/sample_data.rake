@@ -48,12 +48,12 @@ namespace :db do
     authors = ["Джордж Мартин", "Борис Акунин", "Эрика Леонард Джеймс", "Нора Робертс", "Стивен Кинг", "Эрих Мария Ремарк", "Агата Кристи", "Эльчин Сафарли", "Сесилия Ахерн", "Джеймс Роллинс", "Джоанна Линдсей", "Джудит Макнот", "Вадим Зеланд"]
     31.times do |n|
 
-        name = Faker::Lorem.sentence(3)
+        title = Faker::Lorem.sentence(3)
         detail = Faker::Lorem.paragraph(20)
         isbn = (0..9).to_a.shuffle().join
         author_names = authors[ rand(authors.count) ]
         publish_year = '2009'
-        Book.create!(name:name,
+        Book.create!(title: title,
                      detail: detail,
                      isbn: isbn,
                      author_names: author_names,

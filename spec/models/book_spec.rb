@@ -1,4 +1,20 @@
 # -*- encoding : utf-8 -*-
+# == Schema Information
+#
+# Table name: books
+#
+#  id           :integer          not null, primary key
+#  title        :string(255)
+#  author_names :string(255)
+#  detail       :string(255)
+#  isbn         :string(255)
+#  clean_isbn   :string(255)
+#  publish_year :string(255)
+#  created_at   :datetime
+#  updated_at   :datetime
+#
+
+# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
 describe Book do

@@ -1,5 +1,31 @@
 <h3>Embedded search here</h3>
+                          <div>
 
 
 <%   #источник запроса - в переменной local[:source]
    %>
+
+<% if locals[:source].present? && locals[:source] == 'new_specimen' %>
+
+    <%= form_tag(new_book_specimen_path) do %>
+
+        <%= label_tag 'author[query]' , 'Author'%>
+        <%= text_field_tag 'author[query]', '', :typeahead=> 'author as author.name for author in get_authors($viewValue)', :'ng-model'=> 'selected'%>
+        <h2>{{selected.id}} : {{ selected }}</h2>
+
+                                    <input type="number" ng-model="selected.id"/>
+                                    <ul>
+                                      <li ng-repeat='author in authors'>{{ author }}</li>
+                                    </ul>
+        <!--<input type="text" ng-model="author_query">-->
+        <%= hidden_field_tag 'author_id', id: 'author_id' %>
+
+        <%= button_tag 'Search author', id: 'search_author' %>
+
+
+
+
+    <% end %>
+
+<% end %>
+                          </div>

@@ -58,3 +58,14 @@ gem 'faker'
 
 gem 'will_paginate'
 gem 'bootstrap-will_paginate'
+
+
+gem 'annotate'
+
+gem 'angularjs-rails'
+gem 'angularjs-rails-resource'
+gem 'angularjs-bootstrap-rails'
+
+gem 'thinking-sphinx', '~> 3.0.2'
+gem 'mysql2', '0.3.12b4'
+gem 'pg'

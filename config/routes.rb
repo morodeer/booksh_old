@@ -6,12 +6,17 @@ Booksh::Application.routes.draw do
   resources :book_specimens
   resources :books
 
-  resources :authors
+  resources :authors do
+    collection do
+      get :search
+    end
+  end
 
   root to: 'users#showme'
   get '/books/:book_id/create_specimen', to: 'book_specimens#create', as: 'create_specimen_of_book'
   get '/signin', to: 'sessions#new'
   get '/signup', to: 'users#new'
+  get '/signout', to: 'sessions#destroy'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
