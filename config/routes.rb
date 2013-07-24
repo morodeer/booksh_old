@@ -4,7 +4,11 @@ Booksh::Application.routes.draw do
   resources :users
   resources :sessions, only: [:new, :create, :destroy]
   resources :book_specimens
-  resources :books
+  resources :books do
+    collection do
+      get :search
+    end
+  end
 
   resources :authors do
     collection do

@@ -1,31 +1,46 @@
 <h3>Embedded search here</h3>
-                          <div>
+<div>
 
 
-<%   #источник запроса - в переменной local[:source]
-   %>
+  <% #источник запроса - в переменной local[:source]
+  %>
 
-<% if locals[:source].present? && locals[:source] == 'new_specimen' %>
+  <% if locals[:source].present? && locals[:source] == 'new_specimen' %>
 
-    <%= form_tag(new_book_specimen_path) do %>
+      <%= form_tag(new_book_specimen_path) do %>
 
-        <%= label_tag 'author[query]' , 'Author'%>
-        <%= text_field_tag 'author[query]', '', :typeahead=> 'author as author.name for author in get_authors($viewValue)', :'ng-model'=> 'selected'%>
-        <h2>{{selected.id}} : {{ selected }}</h2>
+          <%= label_tag 'author[query]', 'Author' %>
+          <%= text_field_tag 'author[query]', '', :typeahead => 'author as author.name for author in get_authors($viewValue)', :'ng-model' => 'selected_author' %>
+          <%= hidden_field_tag 'author_id', id: 'author_id', :'ng-model' => 'selected_author.id' %>
 
-                                    <input type="number" ng-model="selected.id"/>
-                                    <ul>
-                                      <li ng-repeat='author in authors'>{{ author }}</li>
-                                    </ul>
-        <!--<input type="text" ng-model="author_query">-->
-        <%= hidden_field_tag 'author_id', id: 'author_id' %>
+          <%= label_tag 'book[query]', 'Book title' %>
+          <%=
+              #text_field_tag 'book[query]', '',
+                             #:typeahead => 'book as book.title for book in get_books($viewValue)',
+                             #:'ng-model' => 'selected_book',
+                             #:'ng-disabled' => '!(selected_author.id)'
 
-        <%= button_tag 'Search author', id: 'search_author' %>
+              text_field_tag 'book[query]', '',
+                             :'ng-model' => 'book_query',
+                             :'ng-disabled' => '!(selected_author.id)'
+          %>
+          <%= link_to 'Search', '', class: "btn btn-large",
+                      :'ng-disabled' => '!(selected_author.id)',
+                      :'ng-click' => 'get_books(book_query)' %>
+
+          <%= hidden_field_tag 'book_id', id: 'book_id', :'ng-model' => 'selected_book.id' %>
+
+          <ul id="books_container">
+            <li ng-repeat="book in books">
+              <%= render 'books/book_angular' %>
+            </li>
+          </ul>
 
 
 
 
-    <% end %>
 
-<% end %>
-                          </div>
+      <% end %>
+
+  <% end %>
+</div>

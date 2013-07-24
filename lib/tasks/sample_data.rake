@@ -51,12 +51,12 @@ namespace :db do
         title = Faker::Lorem.sentence(3)
         detail = Faker::Lorem.paragraph(20)
         isbn = (0..9).to_a.shuffle().join
-        author_names = authors[ rand(authors.count) ]
+        #author_names = authors[ rand(authors.count) ]
         publish_year = '2009'
         Book.create!(title: title,
                      detail: detail,
                      isbn: isbn,
-                     author_names: author_names,
+                     #author_names: author_names,
                      publish_year: publish_year
         )
       end

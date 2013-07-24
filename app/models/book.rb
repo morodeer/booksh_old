@@ -19,7 +19,6 @@ class Book < ActiveRecord::Base
 
   has_many :reverse_book_author_relationships, foreign_key: "book_id", class_name: "BookAuthorRelationship", dependent: :destroy
   has_many :authors, through: :reverse_book_author_relationships, source: :author, inverse_of: :books
-  has_many :authors, through: :reverse_book_author_relationships, source: :author, inverse_of: :books
   accepts_nested_attributes_for :authors, allow_destroy: true
   has_many :book_specimens
 
