@@ -40,8 +40,52 @@ class UsersController < ApplicationController
   end
 
   def index
-    redirect_to @user
+    @users ||= User.paginate(page: params[:page])
+
   end
+
+  def friends
+    if params[:id].present?
+      @user = User.find_by_id(params[:id])
+    else
+      @user = current_user
+    end
+
+    @friends = true;
+    @users = @user.friends.paginate(page: params[:page])
+    render 'index'
+
+  end
+
+  def search_friends
+    if params[:user_id].present?
+      @user = User.find_by_id(params[:user_id])
+    else
+      @user = current_user
+    end
+    query = params[:query]
+
+    if query.length < 2
+      @users = @user.friends.first(20)
+    else
+      @users = User.search conditions: {name: query}, with: {friend_ids: @user.id}
+    end
+    respond_to do |format|
+      format.json {render json: @users}
+    end
+  end
+
+  def search
+      query = params[:query]
+      if query.length < 2
+        @users = User.first(20);
+      else
+        @users = User.search conditions: {name: query}
+      end
+      respond_to do |format|
+        format.json {render json: @users}
+      end
+   end
 
   private
   def user_params

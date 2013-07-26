@@ -1,0 +1,18 @@
+<header>
+  <ul>
+    <li id="logo"><%= link_to root_path do %> Booksh <% end %> </li>
+    <% if signed_in? %>
+    <li><%= link_to books_path do %> Книги <% end %></li>
+    <li><%= link_to users_path do %> Люди <% end %></li>
+        <li><%= link_to friends_path do %> Друзья <% end %></li>
+        <% end %>
+    <li>
+      <%= if signed_in?
+            link_to 'Уйти', signout_path
+            else
+              link_to 'Войти', signin_path
+              end
+                 %>
+            </li>
+  </ul>
+</header>

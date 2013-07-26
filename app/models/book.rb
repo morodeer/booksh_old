@@ -21,6 +21,7 @@ class Book < ActiveRecord::Base
   has_many :authors, through: :reverse_book_author_relationships, source: :author, inverse_of: :books
   accepts_nested_attributes_for :authors, allow_destroy: true
   has_many :book_specimens
+  has_many :owners, class_name: 'User', through: :book_specimens, source: :owner, inverse_of: :books
 
 
 

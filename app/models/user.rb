@@ -20,6 +20,9 @@
 class User < ActiveRecord::Base
 
   has_many :book_specimens, foreign_key: 'owner_id'
+  has_many :books, through: :book_specimens, source: :book, inverse_of: :owners
+  has_many :friendships
+  has_many :friends, through: :friendships
   has_secure_password
   before_save :downcase_fields
   before_save :create_remember_token
@@ -37,6 +40,46 @@ class User < ActiveRecord::Base
 
   def obtain!(book)
     book_specimens.create!(book_id: book.id)
+  end
+
+  def request_friend(friend)
+    unless self == friend or
+        self.is_friend_of?(friend) or
+        self.friend_requested?(friend) or
+        self.friend_pending?(friend)
+      friendships.create!(friend_id: friend.id, status: 'pending')
+      friend.friendships.create!(friend_id: self.id, status: 'requested')
+    end
+  end
+
+  def accept_friend(friend)
+    if friend_pending?(friend)
+      Friendship.
+          find_by_user_id_and_friend_id(self,friend).
+          update_attributes(status: 'accepted')
+      Friendship.
+          find_by_user_id_and_friend_id(friend,self).
+          update_attributes(status: 'accepted')
+    end
+  end
+
+  def is_friend_of?(friend)
+    Friendship.exists?(user_id: self.id, friend_id: friend.id, status: 'accepted')
+  end
+
+  def friend_requested?(friend)
+    Friendship.exists?(user_id: self.id, friend_id: friend.id, status: 'requested')
+  end
+
+  def friend_pending?(friend)
+    Friendship.exists?(user_id: friend.id, friend_id: self.id, status: 'pending')
+  end
+
+  def unfriend(friend)
+    if self.is_friend_of?(friend)
+      Friendship.find_by_user_id_and_friend_id(self, friend).destroy
+      Friendship.find_by_user_id_and_friend_id(friend, self).destroy
+    end
   end
 
   def full_name

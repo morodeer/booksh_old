@@ -1,7 +1,14 @@
 # -*- encoding : utf-8 -*-
 Booksh::Application.routes.draw do
 
-  resources :users
+  resources :users  do
+    member do
+      get :friends
+    end
+    collection do
+      get :search
+    end
+  end
   resources :sessions, only: [:new, :create, :destroy]
   resources :book_specimens
   resources :books do
@@ -21,6 +28,8 @@ Booksh::Application.routes.draw do
   get '/signin', to: 'sessions#new'
   get '/signup', to: 'users#new'
   get '/signout', to: 'sessions#destroy'
+  get '/friends', to: 'users#friends'
+  get '/friends/search', to:'users#search_friends'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

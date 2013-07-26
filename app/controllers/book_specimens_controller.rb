@@ -23,7 +23,8 @@ class BookSpecimensController < ApplicationController
   def show
     @specimen = BookSpecimen.find_by_id(params[:id])
     @book = @specimen.book
-    @user = @specimen.user
+    @user = @specimen.owner
+    render 'books/show'
   end
 
 end

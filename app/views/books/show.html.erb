@@ -1,14 +1,32 @@
 <% provide(:title, @book.title) %>
 
-<h1><%= @book.title %></h1>
-<h3>
-  <% @book.authors.each do |author| %>
-      <%= link_to(author) do %>
-          <span class="author"><%= author.name %></span>
-      <% end %>
-  <% end %>
 
-</h3>
+<div id="book_page">
+  <div id="left_column">
+
+    <h1><%= @book.title %></h1>
+    <h2>
+      <% @book.authors.each do |author| %>
+          <%= link_to(author) do %>
+              <%= author.name %>
+          <% end %>
+      <% end %>
+    </h2>
+    <ul id="book_info">
+      <li><strong>Издательство:</strong> <%= @book.publish_year %></li>
+      <li><strong>ISBN:</strong> <%= @book.isbn %></li>
+    </ul>
+    <% if @specimen.present? %>
+    <div id="owner_info">
+      <h3>Владелец: <%= @specimen.owner.full_name %></h3>
+    </div>
+    <% end %>
+  </div>
+  <div id="right_column">
+    <%= image_tag 'http://upload.wikimedia.org/wikipedia/en/5/58/Archer_book_cover.jpg', id: 'cover_big' %>
+
+  </div>
+</div>
     <% if signed_in? %>
 <%= link_to "Make specimen", create_specimen_of_book_path(@book.id)%>
     <% else %>

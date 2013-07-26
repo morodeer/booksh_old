@@ -1,0 +1,23 @@
+<div id="users_index_page" ng-controller="UsersIndexCtrl">
+
+  <input type="text" ng-model="search_query" ng-change="update_users_list()">
+  <script type="text/javascript">
+      friends = <%= @friends.present? && @friends %>;
+      users = <%= render text:  @users.to_json.html_safe %>;
+      <% if @friends.present? && @friends %>
+      current_user = <%= @user.id %>;
+      <% end %>
+  </script>
+  <div id="left_column">
+    <div id="users_container">
+
+      <div class="user_wrapper" ng-repeat="user in users | filter:$search_query">
+         <%= render 'users/user_angular' %>
+      </div>
+
+    </div>
+  </div>
+  <div id="right_column">
+    <!--Menu here-->
+  </div>
+</div>

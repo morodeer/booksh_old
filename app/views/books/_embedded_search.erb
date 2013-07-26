@@ -14,13 +14,7 @@
           <%= hidden_field_tag 'author_id', id: 'author_id', :'ng-model' => 'selected_author.id' %>
 
           <%= label_tag 'book[query]', 'Book title' %>
-          <%=
-              #text_field_tag 'book[query]', '',
-                             #:typeahead => 'book as book.title for book in get_books($viewValue)',
-                             #:'ng-model' => 'selected_book',
-                             #:'ng-disabled' => '!(selected_author.id)'
-
-              text_field_tag 'book[query]', '',
+          <%= text_field_tag 'book[query]', '',
                              :'ng-model' => 'book_query',
                              :'ng-disabled' => '!(selected_author.id)'
           %>
@@ -31,9 +25,9 @@
           <%= hidden_field_tag 'book_id', id: 'book_id', :'ng-model' => 'selected_book.id' %>
 
           <ul id="books_container">
-            <li ng-repeat="book in books">
+            <div class="book_wrapper" ng-repeat="book in books">
               <%= render 'books/book_angular' %>
-            </li>
+            </div>
           </ul>
 
 

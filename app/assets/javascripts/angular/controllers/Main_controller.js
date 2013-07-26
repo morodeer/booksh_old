@@ -30,3 +30,34 @@ window.App.controller('MainCtrl', function($scope,$resource,$http) {
     }
 
 });
+
+window.App.controller('UsersIndexCtrl', function($scope,$resource,$http) {
+    $scope.users = users;
+    $scope.friends = friends;
+
+    $scope.update_users_list = function() {
+        if ($scope.friends) {
+            $scope.current_user = current_user;
+
+            if ($scope.search_query.length < 4) {
+                query = '';
+            }
+            else
+            {
+                query = $scope.search_query;
+            }
+            return $http.get('/friends/search.json?user_id='+current_user+'&query='+$scope.search_query+'')
+                .then(function(response){
+                    $scope.users = response.data;
+                    return response.data;
+                })
+        }        else {
+
+            return $http.get('/users/search.json?query='+$scope.search_query+'')
+                .then(function(response){
+                    $scope.users = response.data;
+                    return response.data;
+                })
+        }
+    }
+})
