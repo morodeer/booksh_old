@@ -3,7 +3,7 @@
   <input type="text" ng-model="search_query" ng-change="update_users_list()">
   <script type="text/javascript">
       friends = <%= @friends.present? && @friends %>;
-      users = <%= render text:  @users.to_json.html_safe %>;
+      users = <%= render text:  @users.to_json(only: [:id, :first_name, :last_name], methods: [:avatar_thumb_filename] ).html_safe %>;
       <% if @friends.present? && @friends %>
       current_user = <%= @user.id %>;
       <% end %>

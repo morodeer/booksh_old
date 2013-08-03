@@ -1,0 +1,17 @@
+<%= form_for @author do |f| %>
+
+<%= f.label :name %>
+<%= f.text_field :name, :'ng-model'=> 'author_name_query'  %>
+
+<%= button_tag 'Search author', :'ng-click' => 'search_authors()' %>
+
+<% end %>
+
+<ul>
+  <li ng-repeat="author in authors">
+    <a href="{{author.wiki_link}}" class="row">
+      <img ng-src="{{author.image_url}}">
+      {{author.name}}
+    </a>
+  </li>
+</ul>

@@ -29,6 +29,7 @@ window.App.controller('MainCtrl', function($scope,$resource,$http) {
         })
     }
 
+
 });
 
 window.App.controller('UsersIndexCtrl', function($scope,$resource,$http) {
@@ -60,4 +61,13 @@ window.App.controller('UsersIndexCtrl', function($scope,$resource,$http) {
                 })
         }
     }
+})
+
+window.App.controller('AuthorNewCtrl', function($scope,$resource,$http) {
+
+	$scope.search_authors = function() {
+		//TODO: Решить, на чьей стороне делать вызов википедии.
+
+	}
+
 })

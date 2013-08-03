@@ -23,6 +23,9 @@ class User < ActiveRecord::Base
   has_many :books, through: :book_specimens, source: :book, inverse_of: :owners
   has_many :friendships
   has_many :friends, through: :friendships
+  has_attached_file :avatar, styles: {medium: ['300x300', :jpg], thumb: ['80x80#', :jpg]},
+                    url: "/system/avatars/:hash.:extension", hash_secret: 'bookshsecret',
+                    default_url: "/system/avatars/:style/missing.jpg"
   has_secure_password
   before_save :downcase_fields
   before_save :create_remember_token
@@ -33,8 +36,8 @@ class User < ActiveRecord::Base
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :email, presence: true, format: {with: VALID_EMAIL_REGEX},
             uniqueness: {case_sensitive: false}
-  validates :password, presence: true, length: {minimum: 5}
-  validates :password_confirmation, presence: true
+  validates :password, presence: true, length: {minimum: 5}, if: :password
+  validates :password_confirmation, presence: true, if: :password
 
 
 
@@ -84,6 +87,10 @@ class User < ActiveRecord::Base
 
   def full_name
     "#{first_name} #{last_name}"
+  end
+
+  def avatar_thumb_filename
+		avatar.url(:thumb)
   end
 
   private

@@ -2,6 +2,8 @@
 namespace :db do
   desc "Fill database with sample data"
   task populate: :environment do
+	  Rake::Task['db:reset'].execute
+
 
     make_users
     make_books

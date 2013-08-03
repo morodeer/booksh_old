@@ -3,6 +3,10 @@ class AuthorsController < ApplicationController
 
   end
 
+  def new
+		@author = Author.new
+  end
+
   def index
     @authors = Author.paginate(page: params[:page])
   end
@@ -11,12 +15,14 @@ class AuthorsController < ApplicationController
     if params[:query].present?
 
       @authors = Author.search params[:query]
-      respond_to do |format|
-        format.html
-        format.json { render json: @authors }
-      end
-    end
-  else
+
+    else
     @authors = Author.paginate(page: params[:page])
+    end
+  respond_to do |format|
+    format.html
+    format.json { render json: @authors }
   end
+    end
+
 end

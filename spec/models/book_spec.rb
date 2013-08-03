@@ -19,12 +19,12 @@ require 'spec_helper'
 
 describe Book do
 
-  before {@book = Book.new(name: 'Book', author_names: 'Author_one, Author_two',
+  before {@book = Book.new(title: 'Book', author_names: 'Author_one, Author_two',
                           isbn: '123-123-345X', publish_year: '2009')}
 
   subject {@book}
 
-  it {should respond_to(:name)}
+  it {should respond_to(:title)}
   it {should respond_to(:author_names)}
   it {should respond_to(:detail)}
   it {should respond_to(:isbn)}
@@ -38,10 +38,6 @@ describe Book do
     it {should_not be_valid}
   end
 
-  describe "with empty author names" do
-    before {@book.author_names = ' '}
-    it {should_not be_valid}
-  end
 
     describe "it should have right isbn" do
       before {@book.save}

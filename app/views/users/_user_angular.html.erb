@@ -1,6 +1,6 @@
 <a href="/users/{{ user.id }}" class="user_block">
   <div class="avatar_wrapper">
-    <img class="cover" src="http://wallpaphd.com/wp-content/uploads/2013/02/Emma-Watson-Rain-Wallpaper.jpg" alt=""/>
+    <img class="cover" ng-src="{{user.avatar_thumb_filename}}" alt=""/>
   </div>
   <div class="info_wrapper">
     <div class="name">{{ user.first_name }} {{ user.last_name }}</div>

@@ -69,3 +69,8 @@ gem 'angularjs-bootstrap-rails'
 gem 'thinking-sphinx', '~> 3.0.2'
 gem 'mysql2', '0.3.12b4'
 gem 'pg'
+
+gem 'selenium-webdriver'
+gem 'database_cleaner'
+
+gem 'paperclip'

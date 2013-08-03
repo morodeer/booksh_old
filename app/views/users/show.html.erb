@@ -1,6 +1,15 @@
 <div id="user_page">
-<div id="user_sector">  <div id="left_column">
-    <%= image_tag 'http://wallpaphd.com/wp-content/uploads/2013/02/Emma-Watson-Rain-Wallpaper.jpg', alt: @user.full_name, class: 'avatar_big' %>
+<div id="user_sector">
+  <div id="left_column">
+    <%= image_tag @user.avatar.url(:medium), alt: @user.full_name, class: 'avatar_big' %>
+    <%
+    if current_user?(@user)   %>
+	    <%=
+      link_to 'Edit', edit_user_path(@user)
+		    %>
+	    <%
+    end
+    %>
   </div>
   <div id="right_column">
       <h1><%= @user.full_name %> <% if current_user?(@user) %>(Это вы)<% end %></h1>

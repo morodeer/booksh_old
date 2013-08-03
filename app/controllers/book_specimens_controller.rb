@@ -1,6 +1,8 @@
 # -*- encoding : utf-8 -*-
 class BookSpecimensController < ApplicationController
 
+  before_filter :signed_in_user, only: [:new, :create]
+
   def new
     @specimen = BookSpecimen.new
     @book = Book.new
@@ -26,5 +28,19 @@ class BookSpecimensController < ApplicationController
     @user = @specimen.owner
     render 'books/show'
   end
+
+  private
+
+    def signed_in_user
+      unless signed_in?
+        store_location
+        redirect_to signin_url, notice: "Please sign in"
+      end
+    end
+
+    def correct_user
+      @user = User.find(params[:id])
+      redirect_to(root_path) unless current_user?(@user)
+    end
 
 end

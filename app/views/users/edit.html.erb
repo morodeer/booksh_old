@@ -4,7 +4,13 @@
 <div class="row">
   <div class="span6 offset3">
 
-    <%= form_for(@user) do |f|%>
+    <%= form_for(@user, {multipart: true}) do |f|%>
+
+
+	    <%= f.label :avatar %>
+	    <%= f.file_field :avatar %>
+	    <%= image_tag @user.avatar.url(:thumb) %>
+
 
         <%= f.label :first_name %>
         <%= f.text_field :first_name %>

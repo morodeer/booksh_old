@@ -18,7 +18,10 @@
     </ul>
     <% if @specimen.present? %>
     <div id="owner_info">
-      <h3>Владелец: <%= @specimen.owner.full_name %></h3>
+      <h3>Владелец: <%= @specimen.owner.full_name %>
+      <% if @specimen.owner_id == current_user.id %>
+            (Это вы)
+            <% end %></h3>
     </div>
     <% end %>
   </div>
@@ -27,6 +30,7 @@
 
   </div>
 </div>
+
     <% if signed_in? %>
 <%= link_to "Make specimen", create_specimen_of_book_path(@book.id)%>
     <% else %>

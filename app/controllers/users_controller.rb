@@ -30,6 +30,7 @@ class UsersController < ApplicationController
   end
 
   def edit
+		@user = User.find_by_id(params[:id])
   end
 
   def update
@@ -91,7 +92,7 @@ class UsersController < ApplicationController
   def user_params
     params.require(:user).permit(
         :username,:email,:password,:password_confirmation,
-        :first_name,:last_name,:city,:geo_coordinates)
+        :first_name,:last_name,:city,:geo_coordinates, :avatar)
   end
 
     def signed_in_user

@@ -10,8 +10,19 @@ FactoryGirl.define do
     city "Жуковский"
   end
 
+  factory :friend, class: 'User' do
+    username "friend"
+    email "friend@world.com"
+    first_name "Prodo"
+    last_name "Elmit"
+    password "helloworld"
+    password_confirmation "helloworld"
+    city "Moscow"
+  end
+
+
   factory :book do
-    name "Книга мертвых. Часть 1"
+    title "Книга мертвых. Часть 1"
     author_names "С.Лукьяненко, А.Белянин"
     detail "Книга повествует ни о чем"
     isbn "123-123-123X"

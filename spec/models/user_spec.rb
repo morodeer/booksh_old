@@ -115,4 +115,24 @@ describe User do
     end
   end
 
+  describe "Friends" do
+    let(:friend) {FactoryGirl.create(:friend)}
+
+
+    describe "requesting friends" do
+      before do
+        friend.save!
+        @user.save!
+      end
+
+      it "should succesfully request friendship" do
+
+      expect {@user.request_friend(friend)}.to change(Friendship, :count).by(2)
+      expect {@user.friend_requested?(friend)}.to be_true
+      expect {friend.friend_pending?(@user)}.to be_true
+      end
+
+    end
+  end
+
 end
