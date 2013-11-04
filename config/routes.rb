@@ -4,6 +4,11 @@ Booksh::Application.routes.draw do
   resources :users  do
     member do
       get :friends
+      delete :unfriend
+      delete :decline_friendship
+      post :accept_friendship
+      delete :recall_friendship
+      put :request_friendship
     end
     collection do
       get :search
@@ -14,6 +19,12 @@ Booksh::Application.routes.draw do
   resources :books do
     collection do
       get :search
+    end
+  end
+
+  resources :friendships do
+    member do
+      delete :destroy
     end
   end
 

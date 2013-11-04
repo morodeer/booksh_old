@@ -63,11 +63,21 @@ window.App.controller('UsersIndexCtrl', function($scope,$resource,$http) {
     }
 })
 
+window.App.controller('AuthorsIndexCtrl', function($scope,$resource,$http) {
+    $scope.authors = authors;
+
+    $scope.update_authors_list = function() {
+
+
+            return $http.get('/authors/search.json?query='+$scope.search_query+'')
+                .then(function(response){
+                    $scope.authors = response.data;
+                    return response.data;
+                })
+    }
+})
+
 window.App.controller('AuthorNewCtrl', function($scope,$resource,$http) {
 
-	$scope.search_authors = function() {
-		//TODO: Решить, на чьей стороне делать вызов википедии.
-
-	}
 
 })

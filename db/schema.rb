@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130802225236) do
+ActiveRecord::Schema.define(version: 20130807171733) do
 
   create_table "authors", force: true do |t|
     t.string   "name"
@@ -19,11 +19,15 @@ ActiveRecord::Schema.define(version: 20130802225236) do
     t.string   "wiki_link"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "delta",      default: true, null: false
+    t.boolean  "delta",              default: true, null: false
+    t.string   "photo_file_name"
+    t.string   "photo_content_type"
+    t.integer  "photo_file_size"
+    t.datetime "photo_updated_at"
   end
 
-  add_index "authors", ["name"], name: "index_authors_on_name", using: :btree
-  add_index "authors", ["real_name"], name: "index_authors_on_real_name", using: :btree
+  add_index "authors", ["name"], name: "index_authors_on_name"
+  add_index "authors", ["real_name"], name: "index_authors_on_real_name"
 
   create_table "book_author_relationships", force: true do |t|
     t.datetime "created_at"
@@ -51,8 +55,8 @@ ActiveRecord::Schema.define(version: 20130802225236) do
     t.datetime "updated_at"
   end
 
-  add_index "books", ["clean_isbn"], name: "index_books_on_clean_isbn", using: :btree
-  add_index "books", ["title"], name: "index_books_on_title", using: :btree
+  add_index "books", ["clean_isbn"], name: "index_books_on_clean_isbn"
+  add_index "books", ["title"], name: "index_books_on_title"
 
   create_table "friendships", force: true do |t|
     t.integer  "user_id"
@@ -79,8 +83,8 @@ ActiveRecord::Schema.define(version: 20130802225236) do
     t.datetime "avatar_updated_at"
   end
 
-  add_index "users", ["first_name"], name: "index_users_on_first_name", using: :btree
-  add_index "users", ["last_name"], name: "index_users_on_last_name", using: :btree
-  add_index "users", ["remember_token"], name: "index_users_on_remember_token", using: :btree
+  add_index "users", ["first_name"], name: "index_users_on_first_name"
+  add_index "users", ["last_name"], name: "index_users_on_last_name"
+  add_index "users", ["remember_token"], name: "index_users_on_remember_token"
 
 end

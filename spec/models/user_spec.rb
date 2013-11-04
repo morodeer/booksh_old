@@ -20,43 +20,45 @@
 require 'spec_helper'
 
 describe User do
-  before {@user = User.new(username: "username", email: "morodeer@gmail.com",
-                           first_name: "Юрий", last_name: "Дынников", city: "Жуковский",
-                           password: "helloworld", password_confirmation: "helloworld"
-  )}
+  before { @user = User.new(username: "username", email: "morodeer@gmail.com",
+                            first_name: "Юрий", last_name: "Дынников", city: "Жуковский",
+                            password: "helloworld", password_confirmation: "helloworld"
+  ) }
 
-  subject {@user}
+  subject { @user }
 
-  it {should respond_to(:username)}
-  it {should respond_to(:email)}
-  it {should respond_to(:first_name)}
-  it {should respond_to(:last_name)}
-  it {should respond_to(:city)}
-  it {should respond_to(:password)}
-  it {should respond_to(:password_confirmation)}
-  it {should respond_to(:remember_token)}
-  it {should respond_to(:book_specimens)}
+  it {
+    should respond_to(:username)
+    should respond_to(:email)
+    should respond_to(:first_name)
+    should respond_to(:last_name)
+    should respond_to(:city)
+    should respond_to(:password)
+    should respond_to(:password_confirmation)
+    should respond_to(:remember_token)
+    should respond_to(:book_specimens)
+  }
 
-  it {should be_valid}
+  it { should be_valid }
 
   describe "when first name is not present" do
-    before {@user.first_name = " "}
-    it {should_not be_valid}
+    before { @user.first_name = " " }
+    it { should_not be_valid }
   end
 
   describe "when email is not present" do
-    before {@user.email = " "}
-    it {should_not be_valid}
+    before { @user.email = " " }
+    it { should_not be_valid }
   end
 
   describe "when first_name is too long(31)" do
-    before {@user.first_name = "a"*31}
-    it {should_not be_valid}
+    before { @user.first_name = "a"*31 }
+    it { should_not be_valid }
   end
 
   describe "when last_name is too long(31)" do
-    before {@user.last_name = "a"*31}
-    it {should_not be_valid}
+    before { @user.last_name = "a"*31 }
+    it { should_not be_valid }
   end
 
   describe "when email format is valid" do
@@ -88,21 +90,21 @@ describe User do
       user_with_same_email.save
     end
 
-    it {should_not be_valid}
+    it { should_not be_valid }
   end
 
   describe "remember token" do
-    before {@user.save}
-    its(:remember_token) {should_not be_blank}
+    before { @user.save }
+    its(:remember_token) { should_not be_blank }
   end
 
   describe "Having books" do
-    let(:book) {FactoryGirl.create(:book)}
-    before {@user.save}
+    let(:book) { FactoryGirl.create(:book) }
+    before { @user.save }
 
 
     it "obtaining should create specimen" do
-      expect {@user.obtain!(book)}.to change(@user.book_specimens, :count).by(1)
+      expect { @user.obtain!(book) }.to change(@user.book_specimens, :count).by(1)
     end
 
     describe "specimen should have right ids" do
@@ -110,13 +112,13 @@ describe User do
         @user.obtain!(book)
       end
 
-      its(:book_specimens) {should include(BookSpecimen.find_by_book_id(book.id))}
-      its(:book_specimens) {should include(BookSpecimen.find_by_owner_id(@user.id))}
+      its(:book_specimens) { should include(BookSpecimen.find_by_book_id(book.id)) }
+      its(:book_specimens) { should include(BookSpecimen.find_by_owner_id(@user.id)) }
     end
   end
 
   describe "Friends" do
-    let(:friend) {FactoryGirl.create(:friend)}
+    let(:friend) { FactoryGirl.create(:friend) }
 
 
     describe "requesting friends" do
@@ -127,9 +129,9 @@ describe User do
 
       it "should succesfully request friendship" do
 
-      expect {@user.request_friend(friend)}.to change(Friendship, :count).by(2)
-      expect {@user.friend_requested?(friend)}.to be_true
-      expect {friend.friend_pending?(@user)}.to be_true
+        expect { @user.request_friendship_with(friend) }.to change(Friendship, :count).by(2)
+        expect { @user.friend_requested?(friend) }.to be_true
+        expect { friend.friend_pending?(@user) }.to be_true
       end
 
     end

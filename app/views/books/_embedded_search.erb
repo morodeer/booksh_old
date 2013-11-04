@@ -11,7 +11,9 @@
 
           <%= label_tag 'author[query]', 'Author' %>
           <%= text_field_tag 'author[query]', '', :typeahead => 'author as author.name for author in get_authors($viewValue)', :'ng-model' => 'selected_author' %>
-          <%= hidden_field_tag 'author_id', id: 'author_id', :'ng-model' => 'selected_author.id' %>
+          <%= label_tag 'author_id', 'Author_id' %>
+          <%= text_field_tag 'author_id', '', id: 'author_id', :'ng-model' => 'selected_author.id' %>
+
 
           <%= label_tag 'book[query]', 'Book title' %>
           <%= text_field_tag 'book[query]', '',

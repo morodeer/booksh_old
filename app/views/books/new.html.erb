@@ -1,10 +1,12 @@
-<% provide(:title,'Create new book') %>
+<% provide(:title, 'Create new book') %>
 <h1>Создать новую книгу</h1>
 
 
 
 <div class="row">
-  <p>Пожалуйста, прежде чем приступать к этому шагу, попробуйте найти эту книгу в <%= link_to "поиске", new_book_specimen_path %></p>
+  <p>Пожалуйста, прежде чем приступать к этому шагу, попробуйте найти эту книгу
+    в <%= link_to "поиске", new_book_specimen_path %></p>
+
   <div class="span6 offset3">
     <%= form_for(@book) do |f| %>
 
@@ -13,23 +15,23 @@
         <div class="items">
           <%= f.nested_fields_for :authors do |f| %>
 
-            <fieldset class="item">
-              <%= f.label :name, 'Автор'%>
-              <%= f.hidden_field :name %>
-              <%= f.text_field :id %>
+              <fieldset class="item">
+                <!--<%= f.label :name, "Автор" %>-->
+                <%= f.hidden_field :name %>
+                <%= f.text_field :id %>
 
-              <a class="remove" href="#">убрать</a>
+                <a class="remove" href="#">убрать</a>
 
-              <%= f.hidden_field :_destroy %>
+                <%= f.hidden_field :_destroy %>
 
-            </fieldset>
+              </fieldset>
 
           <% end %>
-              </div>
+        </div>
         <a class="add" href="#">добавить автора</a>
 
-        <%= f.label :name, 'Название' %>
-        <%= f.text_field :name %>
+        <%= f.label :title, 'Название' %>
+        <%= f.text_field :title %>
 
         <%= f.label :publish_year, 'Год выпуска' %>
         <%= f.text_field :publish_year %>
@@ -38,7 +40,6 @@
         <%= f.text_area :detail %>
 
         <%= f.submit 'Создать' %>
-
 
 
     <% end %>

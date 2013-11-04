@@ -46,11 +46,8 @@ class UsersController < ApplicationController
   end
 
   def friends
-    if params[:id].present?
-      @user = User.find_by_id(params[:id])
-    else
-      @user = current_user
-    end
+
+    @user = params[:id].present? ? User.find_by_id(params[:id]) : current_user
 
     @friends = true;
     @users = @user.friends.paginate(page: params[:page])
@@ -72,7 +69,7 @@ class UsersController < ApplicationController
       @users = User.search conditions: {name: query}, with: {friend_ids: @user.id}
     end
     respond_to do |format|
-      format.json {render json: @users}
+      format.json {render json: @users.to_json(methods: :avatar_thumb_filename)}
     end
   end
 
@@ -84,9 +81,41 @@ class UsersController < ApplicationController
         @users = User.search conditions: {name: query}
       end
       respond_to do |format|
-        format.json {render json: @users}
+        format.json {render json: @users.to_json(methods: :avatar_thumb_filename)}
       end
-   end
+  end
+
+  def unfriend
+    @user = User.find_by_id(params[:id])
+    unless current_user?(@user)
+      current_user.unfriend(@user)
+    end
+    redirect_to @user
+  end
+
+  def decline_friendship
+    @user = User.find_by_id(params[:id])
+    current_user.decline_friendship_from(@user)
+    redirect_to @user
+  end
+
+  def accept_friendship
+    @user = User.find_by_id(params[:id])
+    current_user.accept_friendship_from(@user)
+    redirect_to @user
+  end
+
+  def recall_friendship
+    @user = User.find_by_id(params[:id])
+    current_user.recall_friendship_request_with(@user)
+    redirect_to @user
+  end
+
+  def request_friendship
+    @user = User.find_by_id(params[:id])
+    current_user.request_friendship_with(@user)
+    redirect_to @user
+  end
 
   private
   def user_params

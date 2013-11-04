@@ -1,0 +1,17 @@
+<div id="author_page">
+  <div id="author_sector">
+    <div id="left_column">
+      <%= image_tag @author.photo.url(:medium), alt: @author.name, class: 'photo_big' %>
+    </div>
+    <div id="right_column">
+      <h1><%= @author.name %></h1>
+      <p><strong>Wikipedia: </strong><%= link_to @author.name, @author.wiki_link %></p>
+      <%= link_to 'Edit', edit_author_path(@author) %>
+
+    </div>
+  </div>
+  <div id="books_sector">
+
+    <%= render 'authors/books_container' %>
+
+  </div></div>

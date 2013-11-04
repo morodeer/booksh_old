@@ -45,18 +45,18 @@ class User < ActiveRecord::Base
     book_specimens.create!(book_id: book.id)
   end
 
-  def request_friend(friend)
+  def request_friendship_with(friend)
     unless self == friend or
-        self.is_friend_of?(friend) or
-        self.friend_requested?(friend) or
-        self.friend_pending?(friend)
-      friendships.create!(friend_id: friend.id, status: 'pending')
-      friend.friendships.create!(friend_id: self.id, status: 'requested')
+        self.is_friend_with?(friend) or
+        self.requested_friendship_with?(friend) or
+        self.has_pending_friendship_from?(friend)
+      friendships.create!(friend_id: friend.id, status: 'requested')
+      friend.friendships.create!(friend_id: self.id, status: 'pending')
     end
   end
 
-  def accept_friend(friend)
-    if friend_pending?(friend)
+  def accept_friendship_from(friend)
+    if self.has_pending_friendship_from?(friend)
       Friendship.
           find_by_user_id_and_friend_id(self,friend).
           update_attributes(status: 'accepted')
@@ -66,23 +66,49 @@ class User < ActiveRecord::Base
     end
   end
 
-  def is_friend_of?(friend)
-    Friendship.exists?(user_id: self.id, friend_id: friend.id, status: 'accepted')
+  def decline_friendship_from(friend)
+    unless current_user?(friend)
+
+    if self.has_pending_friendship_from?(friend)
+      Friendship.
+          find_by_user_id_and_friend_id(self,friend).
+          destroy
+      Friendship.
+          find_by_user_id_and_friend_id(friend,self).
+          destroy
+    end
+    end
+
   end
 
-  def friend_requested?(friend)
-    Friendship.exists?(user_id: self.id, friend_id: friend.id, status: 'requested')
-  end
-
-  def friend_pending?(friend)
-    Friendship.exists?(user_id: friend.id, friend_id: self.id, status: 'pending')
+  def recall_friendship_request_with(friend)
+    if self.requested_friendship_with?(friend)
+      Friendship.
+          find_by_user_id_and_friend_id(self,friend).
+          destroy
+      Friendship.
+          find_by_user_id_and_friend_id(friend,self).
+          destroy
+    end
   end
 
   def unfriend(friend)
-    if self.is_friend_of?(friend)
+    if self.is_friend_with?(friend)
       Friendship.find_by_user_id_and_friend_id(self, friend).destroy
       Friendship.find_by_user_id_and_friend_id(friend, self).destroy
     end
+  end
+
+  def is_friend_with?(user)
+    Friendship.exists?(user_id: user.id, friend_id: self.id, status: 'accepted')
+  end
+
+  def requested_friendship_with?(friend)
+    Friendship.exists?(user_id: self.id, friend_id: friend.id, status: 'requested')
+  end
+
+  def has_pending_friendship_from?(friend)
+    Friendship.exists?(user_id: friend.id, friend_id: self.id, status: 'pending')
   end
 
   def full_name

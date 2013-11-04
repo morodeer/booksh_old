@@ -1,8 +1,19 @@
-<ul>
+<div id="authors_index_page" ng-controller="AuthorsIndexCtrl">
 
+  <input type="text" ng-model="search_query" ng-change="update_authors_list()">
+  <script type="text/javascript">
+      authors = <%= render text:  @authors.to_json(only: [:id, :name, :real_name], methods: [:photo_thumb_filename] ).html_safe %>;
+  </script>
+  <div id="left_column">
+    <div id="authors_container">
 
+      <div class="author_wrapper" ng-repeat="author in authors | filter:$search_query">
+        <%= render 'authors/author_angular' %>
+      </div>
 
-  <% @authors.each do |author| %>
-  <li><%= link_to author.name, author_path(author.id) %></li>
-  <% end %>
-</ul>
+    </div>
+  </div>
+  <div id="right_column">
+    <!--Menu here-->
+  </div>
+</div>

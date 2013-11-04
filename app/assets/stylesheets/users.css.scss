@@ -1,3 +1,132 @@
 // Place all the styles related to the users controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+@import '_mixins.css.scss';
+
+
+#user_page {
+
+  #user_sector {
+
+    @include dblock;
+
+    #left_column {
+      width: 20em;
+      @include box_sizing;
+      @include dblock;
+      float: left;
+      padding: 1em 1em;
+      border-right: solid 2px rgba(0, 0, 0, 0.4);
+
+      .avatar_big {
+        @include rounded(4px);
+      }
+
+    }
+
+    #right_column {
+      width: 40em;
+      @include box_sizing;
+      @include dblock;
+      float: left;
+      padding: 1em 1em;
+
+      h1 {
+        text-align: left;
+        font-size: 1.4em;
+        font-family: "PT Sans", sans;
+        font-weight: normal;
+      }
+
+    }
+
+  }
+
+  #books_sector {
+    @include dblock;
+    @include box_sizing;
+
+    #add_book {
+      @include centered;
+    }
+
+
+  }
+
+   #friends_sector {
+     @include dblock;
+     @include box_sizing;
+
+     width: 100%;
+
+     .friend_block {
+       @include dblock;
+       @include box_sizing;
+       width: 33%;
+       font-size: 0.8em;
+     }
+
+   }
+
+}
+
+
+
+
+#users_index_page {
+
+  #left_column {
+    width: 40em;
+    @include dblock;
+    @include box_sizing;
+    padding: 1em 1em;
+    float: left;
+
+    .user_wrapper
+    {
+      width: 100%;
+      @include dblock;
+      @include box_sizing;
+      padding: 0 0.5em;
+
+      .user_block
+      {
+
+        .avatar_wrapper
+        {
+          width: 6em;
+          height: 6em;
+
+          float: left;
+          img {
+            max-width: 100%;
+            max-height: 100%;
+          }
+        }
+
+        .info_wrapper
+        {
+          float: left;
+          height: 6em;
+
+          .name {
+            font-size: 1.2em;
+
+          }
+        }
+
+      }
+    }
+  }
+
+  #right_column {
+    width: 20em;
+    @include dblock;
+    @include box_sizing;
+    padding: 1em 1em;
+    float: left;
+
+  }
+
+}

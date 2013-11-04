@@ -1,0 +1,20 @@
+<div id="books_container">
+
+  <div class="info_bar">
+    <%= pluralize(@author.books.count,'book') %> total
+  </div>
+  <% @author.books.each do |book| %>
+
+      <div class="book_wrapper">
+        <%= link_to(book, class: "book_block") do %>
+            <div class="book_block">
+              <div class="cover_wrapper"><img class="cover" src="" alt=""/></div>
+              <div class="info_wrapper"><div class="title"><%= book.title %></div>
+                <div class="author"><%= book.author_names %></div></div>
+            </div>
+        <% end %>
+      </div>
+
+  <% end %>
+
+</div>
