@@ -1,5 +1,7 @@
 # -*- encoding : utf-8 -*-
 class BooksController < ApplicationController
+  respond_to :json, :html
+
   def new
     @book = Book.new
     @book.authors = [Author.new]
@@ -19,10 +21,16 @@ class BooksController < ApplicationController
 
   def show
     @book = Book.find_by_id(params[:id])
+    respond_with(@book) do |format|
+      format.json {render @book.to_json}
+    end
   end
 
   def index
     @books = Book.paginate(page: params[:page])
+    respond_with(@books) do |format|
+      format.json { render @books.to_json}
+    end
   end
 
   def search

@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require foundation
 //= require jquery.nested-fields
 //= require angular
 //= require angular-resource
@@ -22,3 +23,5 @@ $(document).ready(function(e) {
     $('FORM').nestedFields();
 });
 
+
+$(function(){ $(document).foundation(); });

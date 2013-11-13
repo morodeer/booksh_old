@@ -22,7 +22,9 @@ class Book < ActiveRecord::Base
   accepts_nested_attributes_for :authors, allow_destroy: true
   has_many :book_specimens
   has_many :owners, class_name: 'User', through: :book_specimens, source: :owner, inverse_of: :books
-
+  has_attached_file :cover, styles: {medium: ['300x300', :jpg], thumb: ['200x200', :jpg]},
+                    url: "/system/covers/:hash.:extension", hash_secret: 'bookshbooksecret',
+                    default_url: "/system/covers/:style/missing.jpg"
 
 
   validates :title, presence: true, length: {minimum: 2}
@@ -31,14 +33,17 @@ class Book < ActiveRecord::Base
   before_save :generate_clean_isbn
   before_update :generate_clean_isbn
 
+
+
+
   def add_author(author)
-      if author_names
+    if author_names
       temp_authors = self.author_names.split(/,/)
-      else
+    else
       temp_authors = []
-      end
-      temp_authors.push(author.get_short_name)
-      set_authors_from_array(temp_authors)
+    end
+    temp_authors.push(author.get_short_name)
+    set_authors_from_array(temp_authors)
   end
 
 
@@ -47,21 +52,23 @@ class Book < ActiveRecord::Base
     save
   end
 
-
+  def cover_thumb
+    cover.url(:thumb)
+  end
 
   def get_authors
     authors
   end
 
   private
-    def generate_clean_isbn
-      if isbn
-        self.clean_isbn = self.isbn.gsub(/[^0-9XxХх]/,'')
-      end
+  def generate_clean_isbn
+    if isbn
+      self.clean_isbn = self.isbn.gsub(/[^0-9XxХх]/, '')
     end
+  end
 
-    def book_params
-      params.require.permit!
-    end
+  def book_params
+    params.require.permit!
+  end
 
 end

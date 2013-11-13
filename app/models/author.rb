@@ -26,6 +26,7 @@ class Author < ActiveRecord::Base
 
 
 
+
   def own!(book)
     self.book_author_relationships.create!(book_id: book.id)
     book.add_author(self)

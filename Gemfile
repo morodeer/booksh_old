@@ -75,3 +75,9 @@ gem 'selenium-webdriver'
 gem 'database_cleaner'
 
 gem 'paperclip'
+
+gem 'haml'
+gem 'haml-rails'
+gem 'zurb-foundation'
+
+gem 'active_model_serializers'

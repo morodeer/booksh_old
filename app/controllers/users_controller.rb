@@ -1,7 +1,10 @@
 # -*- encoding : utf-8 -*-
 class UsersController < ApplicationController
-  before_filter :signed_in_user, only: [:show]
+  #before_filter :signed_in_user, only: [:show]
   before_filter :correct_user, only: [:edit, :update]
+
+  respond_to :json, :html
+
   def new
     @user = User.new
   end
@@ -27,6 +30,9 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find_by_id(params[:id])
+    respond_with(@user) do |format|
+      format.json { render @user.to_json}
+    end
   end
 
   def edit
@@ -88,34 +94,79 @@ class UsersController < ApplicationController
   def unfriend
     @user = User.find_by_id(params[:id])
     unless current_user?(@user)
-      current_user.unfriend(@user)
+      respond_with(current_user.unfriend(@user)) do |format|
+        format.html {
+          redirect_to @user
+        }
+        format.json {
+          render
+        }
+      end
+    else
+      respond_with do |format|
+        format.html {
+          redirect_to @user
+        }
+        format.json {
+          render json: [false].to_json
+        }
+      end
     end
-    redirect_to @user
   end
 
   def decline_friendship
     @user = User.find_by_id(params[:id])
-    current_user.decline_friendship_from(@user)
-    redirect_to @user
+    respond_with(current_user.decline_friendship_from(@user)) do |format|
+      format.html {
+        redirect_to @user
+      }
+      format.json {
+        render
+      }
+    end
   end
 
   def accept_friendship
     @user = User.find_by_id(params[:id])
-    current_user.accept_friendship_from(@user)
-    redirect_to @user
+    respond_with(current_user.accept_friendship_from(@user)) do |format|
+      format.html {
+        redirect_to @user
+      }
+      format.json {
+        render
+      }
+    end
   end
 
   def recall_friendship
     @user = User.find_by_id(params[:id])
-    current_user.recall_friendship_request_with(@user)
-    redirect_to @user
+    respond_with(current_user.recall_friendship_request_with(@user)) do |format|
+      format.html {
+        redirect_to @user
+      }
+      format.json {
+        render
+      }
+    end
   end
 
   def request_friendship
     @user = User.find_by_id(params[:id])
-    current_user.request_friendship_with(@user)
-    redirect_to @user
+    respond_with(current_user.request_friendship_with(@user)) do |format|
+      format.html {
+        redirect_to @user
+      }
+      format.json {
+        render
+      }
+    end
   end
+
+  def auth
+    response = signed_in? ? 'true' : 'false'
+    respond_with(response)
+  end
+
 
   private
   def user_params
