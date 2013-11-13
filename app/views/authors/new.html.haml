@@ -1,0 +1,11 @@
+= form_for @author do |f|
+  = render 'shared/error_messages', object: @author
+  = f.label :name
+  = f.text_field :name, :'ng-model'=> 'author_name_query'
+  = f.label :real_name
+  = f.text_field :real_name
+  = label_tag :photo_url, 'Photo url', id: 'author_photo_url'
+  = text_field_tag :photo_url, '', name: 'author[photo_url]', id: 'author_photo_url'
+  = f.label :wiki_link
+  = f.text_field :wiki_link
+  = f.submit 'Создать', class: 'btn btn-large'

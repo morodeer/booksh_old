@@ -1,0 +1,13 @@
+#books_container
+  .info_bar
+    = pluralize(@author.books.count,'book')
+    total
+  - @author.books.each do |book|
+    .book_wrapper
+      = link_to(book, class: "book_block") do
+        .book_block
+          .cover_wrapper
+            %img.cover{:alt => "", :src => ""}/
+          .info_wrapper
+            .title= book.title
+            .author= book.author_names

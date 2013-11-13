@@ -1,0 +1,30 @@
+%nav.top-bar
+	%ul.title-area
+		%li.name
+			%h1
+				=link_to root_path do
+					Booksh
+		%section.top-bar-section
+			%ul.right
+				- if signed_in?
+					%li.divider
+					%li
+						=link_to books_path do
+							Книги
+					%li.divider
+					%li
+						=link_to users_path do
+							Люди
+					%li.divider
+					%li
+						=link_to authors_path do
+							Авторы
+					%li.divider
+					%li
+						=link_to friends_path do
+							Друзья
+				%li
+					- if signed_in?
+						=link_to 'Уйти', signout_path
+					- else
+						=link_to 'Войти', signin_path

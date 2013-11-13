@@ -1,0 +1,14 @@
+#users_index_page{"ng-controller" => "UsersIndexCtrl"}
+  %input{"ng-change" => "update_users_list()", "ng-model" => "search_query", :type => "text"}/
+  :javascript
+    friends = #{@friends.present? && @friends};
+          users = #{render text:  @users.to_json(only: [:id, :first_name, :last_name], methods: [:avatar_thumb_filename] ).html_safe};
+    <haml_silent>       if @friends.present? &amp;&amp; @friends 
+    </haml_silent><haml_block>      current_user = #{@user.id};
+    </haml_block>
+  #left_column
+    #users_container
+      .user_wrapper{"ng-repeat" => "user in users | filter:$search_query"}
+        = render 'users/user_angular'
+  #right_column
+    / Menu here

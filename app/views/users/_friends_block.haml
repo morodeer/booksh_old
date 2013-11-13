@@ -1,0 +1,8 @@
+.panel
+	%h5 Друзья
+	#friends_sector
+		- @user.friends.each do |friend|
+			.friend_block
+				= link_to friend do
+					= image_tag friend.avatar.url(:thumb)
+					.name= friend.full_name

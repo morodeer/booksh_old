@@ -1,0 +1,12 @@
+#author_page
+  #author_sector
+    #left_column
+      = image_tag @author.photo.url(:medium), alt: @author.name, class: 'photo_big'
+    #right_column
+      %h1= @author.name
+      %p
+        %strong Wikipedia:
+        = link_to @author.name, @author.wiki_link
+      = link_to 'Edit', edit_author_path(@author)
+  #books_sector
+    = render 'authors/books_container'

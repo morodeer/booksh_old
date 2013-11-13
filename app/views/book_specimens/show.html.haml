@@ -1,0 +1,9 @@
+- provide(:title, @book.title)
+%h1= @book.title
+%h3
+  - @book.authors.each do |author|
+    = link_to(author) do
+      %span.author= author.get_short_name
+%h3
+  Владелец: #{link_to @user.full_name, @user}#{"(Это вы)" if current_user?(@user)}
+%p.detail= @book.detail

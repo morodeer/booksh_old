@@ -1,0 +1,6 @@
+%a.book_block{:href => "/books/{{ book.id }}"}
+  .cover_wrapper
+    %img.cover{:alt => "", :src => "http://upload.wikimedia.org/wikipedia/en/5/58/Archer_book_cover.jpg"}/
+  .info_wrapper
+    .title {{ book.title }}
+    .author {{ book.author_names }}

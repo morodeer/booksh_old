@@ -1,0 +1,37 @@
+=render 'shared/top_header'
+%section#user_sector
+	.row
+		.large-3.columns#left_column
+			.row
+				.large-12.columns
+					= image_tag @user.avatar.url(:medium), alt: @user.full_name, class: 'avatar_big'
+			.row
+				.large-12.columns
+					%ul.side-nav
+						- if current_user?(@user)
+							%li= link_to 'Редактировать профиль', edit_user_path(@user)
+						- unless current_user?(@user)
+							- if current_user.is_friend_with?(@user)
+								%li= link_to 'Удалить из друзей', unfriend_user_path, method: :delete
+							- elsif current_user.requested_friendship_with?(@user)
+								%li= link_to 'Отозвать запрос', recall_friendship_user_path, method: :delete
+							- elsif current_user.has_pending_friendship_from?(@user)
+								%li= link_to 'Согласиться дружить', accept_friendship_user_path, method: :post
+								%li= link_to 'Отказаться дружить', decline_friendship_user_path, method: :delete
+							- else
+								%li= link_to 'Предложить дружить', request_friendship_user_path, method: :put
+			.row
+				.large-12.columns#friends_block
+					= render 'friends_block'
+		.large-9.columns#right_column
+			.row
+				%h4
+					= @user.full_name
+					- if current_user?(@user)
+						(Это вы)
+%hr
+%section#books_sector
+	.row
+		.large-12.columns
+			= link_to "Add a book", new_book_specimen_path, class: 'button', id: 'add_book'
+			= render 'users/books_container'

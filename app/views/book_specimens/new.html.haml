@@ -1,0 +1,8 @@
+- provide(:title,'New book specimen')
+=render 'shared/top_header'
+.row
+	.large-12.columns
+		%h1 Добавить книгу
+		%p
+			Наверняка ваша книга уже есть на сайте. Попробуйте найти её, или же #{link_to "создайте новую", new_book_path}.
+		= render 'books/embedded_search', locals: {source: 'new_specimen'}

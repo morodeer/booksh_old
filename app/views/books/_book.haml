@@ -1,0 +1,8 @@
+%li
+  = link_to(book) do
+    .title
+      = book.title
+    .authors
+      - book.get_authors.each do |author|
+        = link_to(author) do
+          %span.author= author.name

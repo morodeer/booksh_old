@@ -1,0 +1,17 @@
+- provide(:title,"Edit profile")
+%h1 Edit your profile
+.row
+  .span6.offset3
+    = form_for(@user, {multipart: true}) do |f|
+      = f.label :avatar
+      = f.file_field :avatar
+      = image_tag @user.avatar.url(:thumb)
+      = f.label :first_name
+      = f.text_field :first_name
+      = f.label :last_name
+      = f.text_field :last_name
+      = f.label :city
+      = f.text_field :city
+      / <haml_loud> f.label :geo_coordinates </haml_loud>
+      / <haml_loud> f.text_field :geo_coordinates </haml_loud>
+      = f.submit 'Update', class: 'btn btn-large btn-primary'

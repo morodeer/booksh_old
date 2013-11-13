@@ -1,0 +1,5 @@
+%a.user_block{:href => "/users/{{ user.id }}"}
+  .avatar_wrapper
+    %img.cover{:alt => "", "ng-src" => "{{user.avatar_thumb_filename}}"}/
+  .info_wrapper
+    .name {{ user.first_name }} {{ user.last_name }}

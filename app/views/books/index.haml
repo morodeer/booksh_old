@@ -1,0 +1,18 @@
+- provide(:title, 'All books')
+=render 'shared/top_header'
+
+.row
+	.large-12.columns
+		%h1 Все книги
+		.row
+			.large-block-grid-6
+				-@books.each do |book|
+					%li.book_wrapper
+						= link_to(book, class:'book_block') do
+							.book_block
+								.cover_wrapper
+									=image_tag book.cover.url(:thumb)
+								.info_wrapper
+									.title= book.title
+									.author= book.author_names
+

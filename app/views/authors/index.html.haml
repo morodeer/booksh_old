@@ -1,0 +1,10 @@
+#authors_index_page{"ng-controller" => "AuthorsIndexCtrl"}
+  %input{"ng-change" => "update_authors_list()", "ng-model" => "search_query", :type => "text"}/
+  :javascript
+    authors = #{render text:  @authors.to_json(only: [:id, :name, :real_name], methods: [:photo_thumb_filename] ).html_safe};
+  #left_column
+    #authors_container
+      .author_wrapper{"ng-repeat" => "author in authors | filter:$search_query"}
+        = render 'authors/author_angular'
+  #right_column
+    / Menu here

@@ -1,0 +1,16 @@
+#books_container
+	.info_bar
+		Книг на полке:
+		= @user.book_specimens.count
+	.row
+		.large-block-grid-6
+			- @user.book_specimens.each do |book_specimen|
+				- @book = book_specimen.book
+				%li.book_wrapper
+					= link_to(book_specimen, class: "book_block") do
+						.book_block
+							.cover_wrapper
+								=image_tag @book.cover.url(:thumb)
+							.info_wrapper
+								.title= @book.title
+								.author= @book.author_names
