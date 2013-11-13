@@ -81,3 +81,5 @@ gem 'haml-rails'
 gem 'zurb-foundation'
 
 gem 'active_model_serializers'
+
+gem 'devise'

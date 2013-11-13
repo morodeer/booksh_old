@@ -22,8 +22,8 @@ namespace :db do
         city:"Жуковский",
         username: "Morodeer",
         email: "morodeer@gmail.com",
-        password: "qwerty",
-        password_confirmation: "qwerty"
+        password: "ivfrjlzdrf",
+        password_confirmation: "ivfrjlzdrf"
     )
 
     20.times do |n|

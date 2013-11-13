@@ -1,6 +1,7 @@
 # -*- encoding : utf-8 -*-
 Booksh::Application.routes.draw do
 
+  devise_for :users
   resources :users  do
     member do
       get :friends
@@ -15,7 +16,6 @@ Booksh::Application.routes.draw do
       get :auth
     end
   end
-  resources :sessions, only: [:new, :create, :destroy]
   resources :book_specimens
   resources :books do
     collection do
@@ -37,9 +37,6 @@ Booksh::Application.routes.draw do
 
   root to: 'users#showme'
   get '/books/:book_id/create_specimen', to: 'book_specimens#create', as: 'create_specimen_of_book'
-  get '/signin', to: 'sessions#new'
-  get '/signup', to: 'users#new'
-  get '/signout', to: 'sessions#destroy'
   get '/friends', to: 'users#friends'
   get '/friends/search', to:'users#search_friends'
   get '/auth', to: 'users#auth'

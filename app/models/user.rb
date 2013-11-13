@@ -18,6 +18,10 @@
 
 # -*- encoding : utf-8 -*-
 class User < ActiveRecord::Base
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable and :omniauthable
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :trackable, :validatable
 
   has_many :book_specimens, foreign_key: 'owner_id'
   has_many :books, through: :book_specimens, source: :book, inverse_of: :owners
@@ -26,7 +30,6 @@ class User < ActiveRecord::Base
   has_attached_file :avatar, styles: {medium: ['300x300', :jpg], thumb: ['80x80#', :jpg]},
                     url: "/system/avatars/:hash.:extension", hash_secret: 'bookshsecret',
                     default_url: "/system/avatars/:style/missing.jpg"
-  has_secure_password
   before_save :downcase_fields
   before_save :create_remember_token
 
@@ -36,8 +39,6 @@ class User < ActiveRecord::Base
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :email, presence: true, format: {with: VALID_EMAIL_REGEX},
             uniqueness: {case_sensitive: false}
-  validates :password, presence: true, length: {minimum: 5}, if: :password
-  validates :password_confirmation, presence: true, if: :password
 
 
 
@@ -59,10 +60,10 @@ class User < ActiveRecord::Base
     if self.has_pending_friendship_from?(friend)
       Friendship.
           find_by_user_id_and_friend_id(self,friend).
-          update_attributes(status: 'accepted')
+            update_attributes(status: 'accepted')
       Friendship.
           find_by_user_id_and_friend_id(friend,self).
-          update_attributes(status: 'accepted')
+            update_attributes(status: 'accepted')
     end
   end
 
@@ -108,7 +109,7 @@ class User < ActiveRecord::Base
   end
 
   def has_pending_friendship_from?(friend)
-    Friendship.exists?(user_id: friend.id, friend_id: self.id, status: 'pending')
+    Friendship.exists?(user_id: self.id, friend_id: friend.id, status: 'pending')
   end
 
   def full_name
@@ -118,6 +119,8 @@ class User < ActiveRecord::Base
   def avatar_thumb_filename
 		avatar.url(:thumb)
   end
+
+
 
   private
     def user_params

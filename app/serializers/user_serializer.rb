@@ -1,5 +1,5 @@
 class UserSerializer < ActiveModel::Serializer
-  include SessionsHelper
+  include UsersHelper
   attributes :id, :first_name, :last_name, :full_name, :avatar_thumb, :avatar_medium, :friend_status
 
   def full_name

@@ -25,6 +25,6 @@
 							Друзья
 				%li
 					- if signed_in?
-						=link_to 'Уйти', signout_path
+						=link_to 'Уйти', destroy_user_session_path
 					- else
-						=link_to 'Войти', signin_path
+						=link_to 'Войти', new_user_session_path

@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 class UsersController < ApplicationController
-  #before_filter :signed_in_user, only: [:show]
+  before_filter :authenticate_user!, only: [:show]
   before_filter :correct_user, only: [:edit, :update]
 
   respond_to :json, :html
@@ -31,7 +31,7 @@ class UsersController < ApplicationController
   def show
     @user = User.find_by_id(params[:id])
     respond_with(@user) do |format|
-      format.json { render @user.to_json}
+      format.json { render @user}
     end
   end
 
@@ -93,22 +93,22 @@ class UsersController < ApplicationController
 
   def unfriend
     @user = User.find_by_id(params[:id])
-    unless current_user?(@user)
-      respond_with(current_user.unfriend(@user)) do |format|
-        format.html {
-          redirect_to @user
-        }
-        format.json {
-          render
-        }
-      end
-    else
+    if current_user?(@user)
       respond_with do |format|
         format.html {
           redirect_to @user
         }
         format.json {
           render json: [false].to_json
+        }
+      end
+    else
+      respond_with(current_user.unfriend(@user)) do |format|
+        format.html {
+          redirect_to @user
+        }
+        format.json {
+          render
         }
       end
     end
@@ -169,18 +169,12 @@ class UsersController < ApplicationController
 
 
   private
-  def user_params
-    params.require(:user).permit(
-        :username,:email,:password,:password_confirmation,
-        :first_name,:last_name,:city,:geo_coordinates, :avatar)
-  end
-
-    def signed_in_user
-      unless signed_in?
-        store_location
-        redirect_to signin_url, notice: "Please sign in"
-      end
+    def user_params
+      params.require(:user).permit(
+          :username,:email,:password,:password_confirmation,
+          :first_name,:last_name,:city,:geo_coordinates, :avatar)
     end
+
 
     def correct_user
       @user = User.find(params[:id])
