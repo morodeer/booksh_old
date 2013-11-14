@@ -83,3 +83,5 @@ gem 'zurb-foundation'
 gem 'active_model_serializers'
 
 gem 'devise'
+
+gem 'rails-api'

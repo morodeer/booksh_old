@@ -21,16 +21,10 @@ class BooksController < ApplicationController
 
   def show
     @book = Book.find_by_id(params[:id])
-    respond_with(@book) do |format|
-      format.json {render @book.to_json}
-    end
   end
 
   def index
     @books = Book.paginate(page: params[:page])
-    respond_with(@books) do |format|
-      format.json { render @books.to_json}
-    end
   end
 
   def search
@@ -39,18 +33,10 @@ class BooksController < ApplicationController
 
       if params[:author_id].present?
         @books = Book.search conditions: {title: params[:query], author_id: params[:author_id]}
-        respond_to do |format|
-          format.html
-          format.json {render json: @books}
-        end
       end
     else
       if params[:author_id].present?
         @books = Book.search conditions: {author_id: params[:author_id]}
-        respond_to do |format|
-          format.html
-          format.json {render json: @books}
-        end
       end
     end
 
