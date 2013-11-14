@@ -1,6 +1,7 @@
 # -*- encoding : utf-8 -*-
 Booksh::Application.routes.draw do
 
+
   devise_for :users
   resources :users  do
     member do
@@ -40,6 +41,9 @@ Booksh::Application.routes.draw do
   get '/friends', to: 'users#friends'
   get '/friends/search', to:'users#search_friends'
   get '/auth', to: 'users#auth'
+  devise_scope :user do
+    get '/sign_in', to: 'devise/sessions#create'
+  end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

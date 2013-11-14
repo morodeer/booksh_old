@@ -63,7 +63,7 @@ class AuthorsController < ApplicationController
 
   private
     def signed_in_user
-      unless signed_in?
+      unless user_signed_in?
         redirect_to signin_path
       end
     end

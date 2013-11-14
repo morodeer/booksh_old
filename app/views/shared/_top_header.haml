@@ -6,7 +6,7 @@
 					Booksh
 		%section.top-bar-section
 			%ul.right
-				- if signed_in?
+				- if user_signed_in?
 					%li.divider
 					%li
 						=link_to books_path do
@@ -24,7 +24,7 @@
 						=link_to friends_path do
 							Друзья
 				%li
-					- if signed_in?
-						=link_to 'Уйти', destroy_user_session_path
+					- if user_signed_in?
+						=link_to 'Уйти', destroy_user_session_path, method:  :delete
 					- else
 						=link_to 'Войти', new_user_session_path

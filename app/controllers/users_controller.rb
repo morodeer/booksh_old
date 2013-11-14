@@ -10,7 +10,7 @@ class UsersController < ApplicationController
   end
 
   def showme
-    if signed_in?
+    if user_signed_in?
       @user = current_user
       render 'show'
     else
@@ -163,8 +163,21 @@ class UsersController < ApplicationController
   end
 
   def auth
-    response = signed_in? ? 'true' : 'false'
+    response = user_signed_in? ? 'true' : 'false'
     respond_with(response)
+  end
+
+  def json_auth
+    @user = User.find_by_email(params[:email])
+    if @user
+      if @user.valid_password?(params[:password])
+
+      end
+    else
+      respond_with({error:'No such login found'})
+    end
+
+
   end
 
 

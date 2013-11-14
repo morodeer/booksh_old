@@ -25,7 +25,7 @@
 						= link_to @specimen.owner.full_name, user_path(@specimen.owner)
 						- if @specimen.owner_id == current_user.id
 							(Это вы)
-		- if signed_in?
+		- if user_signed_in?
 			= link_to "Создать экземпляр", create_specimen_of_book_path(@book.id), class: 'button'
 		- else
 			= link_to "Sign in", signin_path

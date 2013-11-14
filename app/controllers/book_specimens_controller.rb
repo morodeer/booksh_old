@@ -32,7 +32,7 @@ class BookSpecimensController < ApplicationController
   private
 
     def signed_in_user
-      unless signed_in?
+      unless user_signed_in?
         store_location
         redirect_to signin_url, notice: "Please sign in"
       end

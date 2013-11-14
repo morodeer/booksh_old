@@ -26,4 +26,8 @@ class ApplicationController < ActionController::Base
       super || form_authenticity_token == request.headers['X-XSRF-TOKEN']
     end
 
+  def after_sign_out_path_for(resource)
+    root_path
+  end
+
 end
